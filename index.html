@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+	<html class="sl-root decks export offline loaded">
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<title>Service Worker Crash Course: Slides</title>
+		<meta name="description" content="Slides">
+
+		<link rel="stylesheet" type="text/css" href="lib/offline-v2.css">
+
+
+
+	</head>
+	<body class="reveal-viewport theme-font-montserrat theme-color-asphalt-orange">
+		<div class="reveal">
+			<div class="slides">
+				<section data-id="03613b9a8ea78da79be802acd72713d5"><div class="sl-block" data-block-type="text" style="width: 960px; left: 0px; top: 0px; height: auto;" data-block-id="f7662c8db412884b48c3757374fad0fb"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text" style="z-index: 13; text-align: center;" dir="ui">
+<h1>Service Worker</h1>
+<h2>Crash Course</h2>
+</div></div>
+<div class="sl-block" data-block-type="image" style="min-width: 30px; min-height: 30px; width: 640px; height: 308px; left: 160px; top: 210px;" data-block-id="1fdb88fd29e0caad04ac9019a0558955"><div class="sl-block-content" style="z-index: 11;"><img data-natural-width="888" data-natural-height="428" data-src="service-worker-crash-course/3021803-Game.gif"></div></div>
+<div class="sl-block" data-block-type="image" style="min-width: 30px; min-height: 30px; width: 123px; height: 95px; left: 0px; top: 605px;" data-block-id="1d0a429388e1b4d4b2ddab434e7624d8"><div class="sl-block-content" style="z-index: 12;"><img data-natural-width="449" data-natural-height="347" data-src="service-worker-crash-course/3462549-3021977-WalkDinosaur-white.gif"></div></div></section><section data-id="d09ef1adbfe84c2f95ab5f8f2764414b">
+
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 960px; left: 0px; top: 311px;" data-block-id="f2de9f4d1f32b1f8987af27d14106d70"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 11;">
+<p><span style="font-size:1.0em">Rafael Fernandes</span></p>
+</div></div>
+<div class="sl-block" data-block-type="image" style="min-width: 30px; min-height: 30px; width: 220px; height: 221px; left: 371px; top: 70px;" data-block-id="d53c7f8f3789474d16930e0aa0f56fd4"><div class="sl-block-content" style="z-index: 12; border-style: solid; border-color: rgb(201, 218, 248); border-width: 6px; border-radius: 144px;"><img data-natural-width="1346" data-natural-height="1350" data-src="service-worker-crash-course/3462563-face.jpg"></div></div>
+<div class="sl-block" data-block-type="image" style="min-width: 30px; min-height: 30px; width: 168px; height: 140px; left: 712px; top: 420px;" data-block-id="af54b7fa71153234528acb5885876207"><div class="sl-block-content" style="z-index: 13;"><img data-natural-width="800" data-natural-height="665" data-src="service-worker-crash-course/2664017-Github.png"></div></div>
+<div class="sl-block" data-block-type="image" style="min-width: 30px; min-height: 30px; width: 140px; height: 140px; left: 80px; top: 420px;" data-block-id="6e55d3d29a77918448d9b117607d06ec"><div class="sl-block-content" style="z-index: 14;"><img data-natural-width="512" data-natural-height="512" data-src="service-worker-crash-course/2664023-Twitter.png"></div></div>
+<div class="sl-block" data-block-type="image" style="min-width: 30px; min-height: 30px; width: 313px; height: 140px; left: 325px; top: 420px;" data-block-id="3d1d293b3749eec9bee512979fa144ed"><div class="sl-block-content" style="z-index: 15;"><img data-natural-width="422" data-natural-height="189" data-src="service-worker-crash-course/3462572-site.png"></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 319px; left: 641px; top: 560px;" data-block-id="22a6b190b07cc7c8875789e48fbd0f04"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 16;">
+<p><span style="font-size:0.7em">AdamModus</span></p>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 320px; left: 0px; top: 560px;" data-block-id="dd833c5f4a980983c24b370679fd52da"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 17;">
+<p><span style="font-size:0.7em">@AdamModus</span></p>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 480px; left: 240px; top: 560px;" data-block-id="ae593f8bc9ea9a583c8499b6e967ec2e"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 18;">
+<p><span style="font-size:0.7em">https://adammode.xyz</span></p>
+</div></div></section><section data-id="976a2fbc130cfa251f15d0331218fae0"><div class="sl-block" data-block-type="image" style="width: 123px; height: 95px; left: 0px; top: 605px;" data-block-id="bb737e4c4f560b9495817779f6b95631"><div class="sl-block-content" style="z-index: 11;"><img data-natural-width="449" data-natural-height="347" data-src="service-worker-crash-course/3462549-3021977-WalkDinosaur-white.gif"></div></div>
+<div class="sl-block" data-block-type="image" style="min-width: 30px; min-height: 30px; width: 274px; height: 168px; left: 343px; top: 70px;" data-block-id="422313e56279d076b51980e121a2f15a"><div class="sl-block-content" style="z-index: 12;"><img data-natural-width="350" data-natural-height="214" data-src="service-worker-crash-course/2889196-logo--primary__1_.png"></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 240px; left: 720px; top: 311px;" data-block-id="ebd96753779fde8a34da43e17f728c77"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 14;">
+<p>That's me!</p>
+</div></div>
+<div class="sl-block" data-block-type="image" style="min-width: 30px; min-height: 30px; width: 465px; height: 310px; left: 248px; top: 280px;" data-block-id="d9b892aed3d34c576a4060fb14e17b71"><div class="sl-block-content" style="z-index: 13;"><img data-natural-width="1030" data-natural-height="687" data-src="service-worker-crash-course/3462592-rabo.jpg"></div></div>
+<div class="sl-block" data-block-type="shape" style="min-width: 4px; min-height: 4px; width: 117px; height: 50px; left: 645px; top: 343px;" data-block-id="161c210e85894c9884033eb333fbb2a7"><div class="sl-block-style" style="z-index: 15; transform: rotate(342deg);"><div class="sl-block-content" data-shape-type="arrow-left" data-shape-fill-color="rgb(238, 238, 238)" data-shape-stretch="true" style="z-index: 15;"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="100%" height="100%" preserveaspectratio="none" viewbox="0 0 117 50"><polygon points="117,15 58.5,15 58.5,0 0,25 58.5,50 58.5,35 117,35 117,15" class="shape-element" fill="rgb(238, 238, 238)"></polygon></svg></div></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 480px; left: 240px; top: 605px;" data-block-id="9c7c4d3aea74da57dfdd49d3141f73bc"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 16;">
+<p>Rabobank</p>
+</div></div></section><section data-id="524976586305e50a7aa7c7b63a475a62"><div class="sl-block" data-block-type="text" style="width: 960px; left: 0px; top: 0px; height: auto;" data-block-id="c87819a822f2725405d461a4f76846de"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text" style="z-index: 12; text-align: center;" dir="ui">
+<h1>Agenda</h1>
+</div></div>
+<div class="sl-block" data-block-type="image" style="min-width: 30px; min-height: 30px; width: 123px; height: 95px; left: 0px; top: 605px;" data-block-id="71c88b8870c5a4f96e4158195e850ab2"><div class="sl-block-content" style="z-index: 11;"><img data-natural-width="449" data-natural-height="347" data-src="service-worker-crash-course/3462549-3021977-WalkDinosaur-white.gif"></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 960px; left: 0px; top: 141px;" data-block-id="6c5d0f01e52fe19f0759678437d2bb2a"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 13;">
+<ul>
+	<li><span style="font-size:1.0em">What are service workers</span></li>
+	<li><span style="font-size:1.0em">Philosophy behind service workers</span></li>
+	<li>
+<span style="font-size:1.0em">Service Worker life cycle:</span>
+	<ul>
+		<li><span style="font-size:1.0em">Availability</span></li>
+		<li><span style="font-size:1.0em">Register</span></li>
+		<li><span style="font-size:1.0em">First use</span></li>
+		<li><span style="font-size:1.0em">Updating Service Workers</span></li>
+		<li><span style="font-size:1.0em">Extra points</span></li>
+	</ul>
+	</li>
+	<li><span style="font-size:1.0em">Last minute special: state changes</span></li>
+	<li>
+<span style="font-size:1.0em">After class extras:</span>
+	<ul>
+		<li><span style="font-size:1.0em">Detecting connection via javascript?</span></li>
+		<li><span style="font-size:1.0em">Tips for development</span></li>
+	</ul>
+	</li>
+	<li><span style="font-size:1.0em">Q&amp;A</span></li>
+</ul>
+</div></div></section><section data-id="44ccd4ab18d2fcd80f2389bf2071bed8"><div class="sl-block" data-block-type="text" style="width: 960px; left: 0px; top: 0px; height: auto;" data-block-id="2fb3461c30fa48f2a063f063ada4fcd6"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text" style="z-index: 12; text-align: center;" dir="ui">
+<h1>Service Workers?</h1>
+</div></div>
+<div class="sl-block" data-block-type="image" style="width: 123px; height: 95px; left: 0px; top: 605px;" data-block-id="4a1375ff5ccb848eb4e1a9eea975860f"><div class="sl-block-content" style="z-index: 11;"><img data-natural-width="449" data-natural-height="347" data-src="service-worker-crash-course/3462549-3021977-WalkDinosaur-white.gif"></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 800px; left: 80px; top: 140px;" data-block-id="15bb292cb911f87007d869ac35c40c6d"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 13;">
+<p style="color:rgb(255, 255, 255); text-align:left">Has its own <span style="color:#FFD700">thread </span>(remember web workers?)</p>
+
+<p style="color:rgb(255, 255, 255); text-align:left">Caching</p>
+
+<p style="color:rgb(255, 255, 255); text-align:left">Versioning</p>
+
+<p style="color:rgb(255, 255, 255); text-align:left"><span style="color:rgb(255, 255, 255); text-align:left">Allows </span><span style="color:#FFD700"><span style="text-align:left">offline functionality</span></span></p>
+
+<p style="color:rgb(255, 255, 255); text-align:left">Able to <span style="color:#FFD700">intercept fetch</span> requests</p>
+
+<p style="color:rgb(255, 255, 255); text-align:left">Useful in slow connectivity scenarios / li-fi</p>
+
+<p style="color:rgb(255, 255, 255); text-align:left">It's still all <span style="color:#FFD700">javascript</span>!</p>
+</div></div></section><section data-id="010cfb79c61fbfe7a6c0d3027f6dd011"><div class="sl-block" data-block-type="text" style="width: 960px; left: 0px; top: 0px; height: auto;" data-block-id="652e7ec24f7bd86bffa17de88eba5507"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text" style="z-index: 12; text-align: center;" dir="ui">
+<h1>Philosophy time!</h1>
+</div></div>
+<div class="sl-block" data-block-type="image" style="width: 123px; height: 95px; left: 0px; top: 605px;" data-block-id="4339821dae4f516f03fe10d1ebcdbd68"><div class="sl-block-content" style="z-index: 11;"><img data-natural-width="449" data-natural-height="347" data-src="service-worker-crash-course/3462549-3021977-WalkDinosaur-white.gif"></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 800px; left: 80px; top: 210px;" data-block-id="e163bfdf30e35ea39043460cf497ec80"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 13;">
+<ul>
+	<li style="color:rgb(255, 255, 255); text-align:left">Get as much resources as possible <span style="color:#FFD700">cached on the browser</span> and <span style="color:#FFD700">cache new assets in real time</span>
+</li>
+	<li style="color:rgb(255, 255, 255); text-align:left">Cached information is <span style="color:#FFD700">better than nothing</span> or waiting ages for a slow network</li>
+	<li style="color:rgb(255, 255, 255); text-align:left">The user is happy in all scenarios:
+	<ul>
+		<li style="color:rgb(255, 255, 255); text-align:left">Online</li>
+		<li style="color:rgb(255, 255, 255); text-align:left">Offline</li>
+		<li style="color:rgb(255, 255, 255); text-align:left">Li-fi</li>
+	</ul>
+	</li>
+</ul>
+</div></div>
+<div class="sl-block" data-block-type="image" style="min-width: 30px; min-height: 30px; width: 240px; height: 240px; left: 480px; top: 460px;" data-block-id="dec2ef3c4604d1c22bad023d72147c6b"><div class="sl-block-content" style="z-index: 14;"><img data-natural-width="500" data-natural-height="500" data-src="service-worker-crash-course/3463610-4e164d6124d71a0dccb8606514dffaeb.jpg"></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 800px; left: 80px; top: 140px;" data-block-id="3c38d75cbfe1d0de560c9741ddade96a"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 15;">
+<p style="text-align: left;"><span style="color:rgb(255, 255, 255); text-align:left">Offline first philosophy:</span></p>
+</div></div></section><section class="stack" data-id="1d9676275644cf768c0c9293a0e584ea"><section data-id="535a70c563b762b4cac8e2f48d6062ad"><div class="sl-block" data-block-type="text" style="width: 960px; left: 0px; top: 0px; height: auto;" data-block-id="3cf7f46aeb224df748db928020d122df"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text" style="z-index: 12; text-align: center;" dir="ui">
+<h1>Service Worker life cycle</h1>
+</div></div>
+<div class="sl-block" data-block-type="image" style="width: 123px; height: 95px; left: 0px; top: 605px;" data-block-id="aed5e2a0587631a6be51e73963fb4b79"><div class="sl-block-content" style="z-index: 11;"><img data-natural-width="449" data-natural-height="347" data-src="service-worker-crash-course/3462549-3021977-WalkDinosaur-white.gif"></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 800px; left: 80px; top: 140px;" data-block-id="e5f5b9d2cab0844b435a7b5949f49260"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 13;">
+<p style="text-align:left"><span style="color:rgb(255, 255, 255); text-align:left">Checking availability</span></p>
+</div></div>
+<div class="sl-block" data-block-type="image" style="min-width: 30px; min-height: 30px; width: 800px; height: 166px; left: 80px; top: 210px;" data-block-id="c0d606d3bd48de3514f1861f5c3eb203"><div class="sl-block-content" style="z-index: 14;"><img data-natural-width="522" data-natural-height="108" data-src="service-worker-crash-course/3464089-available.png"></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 800px; left: 80px; top: 420px;" data-block-id="56b8f967d93aa9663f0db85f7db40559"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 16;">
+<p>or</p>
+
+<p><a href="https://jakearchibald.github.io/isserviceworkerready/" target="_blank">https://jakearchibald.github.io/isserviceworkerready</a></p>
+</div></div></section><section data-id="a83d31c22af8e75c65c5e28607aacc68"><div class="sl-block" data-block-type="text" style="width: 960px; left: 0px; top: 0px; height: auto;" data-block-id="5bf23b513e45afd7464417492852104a"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text" style="z-index: 12; text-align: center;" dir="ui">
+<h1>Service Worker life cycle</h1>
+</div></div>
+<div class="sl-block" data-block-type="image" style="width: 123px; height: 95px; left: 0px; top: 605px;" data-block-id="13a64fff826c48ffb2a74bfc7d17a1b9"><div class="sl-block-content" style="z-index: 11;"><img data-natural-width="449" data-natural-height="347" data-src="service-worker-crash-course/3462549-3021977-WalkDinosaur-white.gif"></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 800px; left: 80px; top: 140px;" data-block-id="3a8dad2a3bb25ff4f6c3eca24a4b35d9"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 13;">
+<p style="text-align:left"><span style="color:rgb(255, 255, 255); text-align:left">Registering a service worker</span></p>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 800px; left: 80px; top: 401px;" data-block-id="54d12b0d9c5447953aa7958a7928b872"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 14;">
+<p style="text-align: left;">Yep, it's that easy!</p>
+</div></div>
+<div class="sl-block" data-block-type="image" style="min-width: 30px; min-height: 30px; width: 800px; height: 155px; left: 80px; top: 210px;" data-block-id="f087470b1049bfac742d83bd594270f2"><div class="sl-block-content" style="z-index: 15;"><img data-natural-width="680" data-natural-height="132" data-src="service-worker-crash-course/3464098-registered.png"></div></div></section></section><section class="stack" data-id="8c71b32ff202ba1f3c4bcc145923f141"><section data-id="64b402f8de93e8e42a1efd9c6e938046"><div class="sl-block" data-block-type="text" style="width: 960px; left: 0px; top: 0px; height: auto;" data-block-id="f580ee2a67ca63babff75a8bd9514bba"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text" style="z-index: 12; text-align: center;" dir="ui">
+<h1>Service Worker life cycle</h1>
+</div></div>
+<div class="sl-block" data-block-type="image" style="width: 123px; height: 95px; left: 0px; top: 605px;" data-block-id="dd03c15b7a565bc1166d9e4186d01b58"><div class="sl-block-content" style="z-index: 11;"><img data-natural-width="449" data-natural-height="347" data-src="service-worker-crash-course/3462549-3021977-WalkDinosaur-white.gif"></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 800px; left: 80px; top: 140px;" data-block-id="5132bb0de800de144379669054987d8b"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 13;">
+<h3 style="color: rgb(33, 33, 33); text-align: start;"><span style="color:#FFFFFF">Install</span></h3>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 800px; left: 80px; top: 210px;" data-block-id="4e68d36189f3fabaf298456b36e54d63"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 14;">
+<p style="text-align:left">First event, triggered as soon as it <span style="color:#FFD700">executes</span></p>
+
+<p style="text-align:left"><span style="color:#FFD700">Once </span>per service worker</p>
+
+<p style="text-align:left">Opportunity to <span style="color:#FFD700">start caching</span> before being able to control clients</p>
+
+<p style="text-align:left">The promise passed to event.waitUntil() tells the browser when instalation is successful</p>
+
+<p style="text-align:left">If promise rejects, install has failed and service worker is thrown away :(</p>
+</div></div>
+<div class="sl-block" data-block-type="image" style="min-width: 30px; min-height: 30px; width: 249px; height: 140px; left: 356px; top: 560px;" data-block-id="6a11be12d22371ecb5c4b6ed14a39978"><div class="sl-block-content" style="z-index: 15;"><img data-natural-width="512" data-natural-height="288" data-src="service-worker-crash-course/3463681-trash.gif"></div></div></section><section data-id="a6d7b3548da4442cbe0eb3cf8b722cfc"><div class="sl-block" data-block-type="text" style="width: 960px; left: 0px; top: 0px; height: auto;" data-block-id="d31858062127527840d62f77c8e4833b"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text" style="z-index: 12; text-align: center;" dir="ui">
+<h1>Service Worker life cycle</h1>
+</div></div>
+<div class="sl-block" data-block-type="image" style="width: 123px; height: 95px; left: 0px; top: 605px;" data-block-id="8374319a46863cda4feaa7402bd59c98"><div class="sl-block-content" style="z-index: 11;"><img data-natural-width="449" data-natural-height="347" data-src="service-worker-crash-course/3462549-3021977-WalkDinosaur-white.gif"></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 800px; left: 80px; top: 140px;" data-block-id="aaafd1f7ba0600ae5479a2b903671b52"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 13;">
+<h3 style="color: rgb(33, 33, 33); text-align: start;"><span style="color:#FFFFFF">Install</span></h3>
+</div></div>
+<div class="sl-block" data-block-type="image" style="min-width: 30px; min-height: 30px; width: 800px; height: 143px; left: 80px; top: 210px;" data-block-id="cc86cb5c5d176074925fec1d2631e2fa"><div class="sl-block-content" style="z-index: 14;"><img data-natural-width="644" data-natural-height="115" data-src="service-worker-crash-course/3463706-install.png"></div></div></section></section><section class="stack" data-id="31dd838e861f7abfa54c68108c82c76f"><section data-id="9be03a086471157b13fe58b8b8a980e0"><div class="sl-block" data-block-type="text" style="width: 960px; left: 0px; top: 0px; height: auto;" data-block-id="954f500d3d52b3731e39c7159420824f"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text" style="z-index: 12; text-align: center;" dir="ui">
+<h1>Service Worker life cycle</h1>
+</div></div>
+<div class="sl-block" data-block-type="image" style="width: 123px; height: 95px; left: 0px; top: 605px;" data-block-id="49cb5124aadf03a073bc996a3355cfa4"><div class="sl-block-content" style="z-index: 11;"><img data-natural-width="449" data-natural-height="347" data-src="service-worker-crash-course/3462549-3021977-WalkDinosaur-white.gif"></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 800px; left: 80px; top: 140px;" data-block-id="37bf9db72a5a53a5a41040aed44d5b38"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 13;">
+<h3 style="color:rgb(33, 33, 33); text-align:start"><span style="color:#FFFFFF">Activate</span></h3>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 800px; left: 80px; top: 210px;" data-block-id="6d5a98ffb1fd015142f7a2ed5ad3b665"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 14;">
+<p style="text-align:left">Ready to <span style="color:#FFD700">control</span> clients</p>
+
+<p style="text-align:left"><span style="color:#FFD700">Does not guarantee</span> that the page that called .register() will be controlled</p>
+
+<p style="text-align:left">If a page loads without a service worker, <span style="color:#FFD700">neither will its sub-resources</span>. If you load a second time though, fetch events will be intercepted.</p>
+
+<p style="color:rgb(255, 255, 255); text-align:left">Handle <span style="color:#FFD700">push</span> and <span style="color:#FFD700">sync</span></p>
+</div></div>
+<div class="sl-block" data-block-type="image" style="min-width: 30px; min-height: 30px; width: 188px; height: 141px; left: 533px; top: 491px;" data-block-id="19138cdd5df28fa9b563661582c80c06"><div class="sl-block-content" style="z-index: 15;"><img data-natural-width="256" data-natural-height="192" data-src="service-worker-crash-course/3463734-activated.gif"></div></div></section><section data-id="d5acd04874f9c0e88ea45d59208e80f8"><div class="sl-block" data-block-type="text" style="width: 960px; left: 0px; top: 0px; height: auto;" data-block-id="b7dc23d7c2bb7c261d730ba877480cb6"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text" style="z-index: 12; text-align: center;" dir="ui">
+<h1>Service Worker life cycle</h1>
+</div></div>
+<div class="sl-block" data-block-type="image" style="width: 123px; height: 95px; left: 0px; top: 605px;" data-block-id="1cb2715bdb817fb61ee38a23033581a3"><div class="sl-block-content" style="z-index: 11;"><img data-natural-width="449" data-natural-height="347" data-src="service-worker-crash-course/3462549-3021977-WalkDinosaur-white.gif"></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 800px; left: 80px; top: 140px;" data-block-id="4e6165eaf0f5808fe0d94be2c975c846"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 13;">
+<h3 style="color:rgb(33, 33, 33); text-align:start"><span style="color:#FFFFFF">Activate</span></h3>
+</div></div>
+<div class="sl-block" data-block-type="image" style="min-width: 30px; min-height: 30px; width: 800px; height: 193px; left: 80px; top: 210px;" data-block-id="c96292727364f7525cd4f6079c3f1bd0"><div class="sl-block-content" style="z-index: 15;"><img data-natural-width="489" data-natural-height="118" data-src="service-worker-crash-course/3463741-activated.png"></div></div></section></section><section class="stack" data-id="5c42ede0e48b041eb698de94b980372b"><section data-id="79b321658f8ae0809934fb5b445782b3"><div class="sl-block" data-block-type="text" style="width: 960px; left: 0px; top: 0px; height: auto;" data-block-id="863fed213c45c4ed0a3a3a26e0c7b9cc"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text" style="z-index: 12; text-align: center;" dir="ui">
+<h1>Life cycle on updates</h1>
+</div></div>
+<div class="sl-block" data-block-type="image" style="width: 123px; height: 95px; left: 0px; top: 605px;" data-block-id="5582b212765f798704a7e86c5029f515"><div class="sl-block-content" style="z-index: 11;"><img data-natural-width="449" data-natural-height="347" data-src="service-worker-crash-course/3462549-3021977-WalkDinosaur-white.gif"></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 800px; left: 80px; top: 140px;" data-block-id="22662647c472ae7aa073a85e817099fd"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 13;">
+<h3 style="color:rgb(33, 33, 33); text-align:start"><span style="color:#FFFFFF">What about service worker updates?</span></h3>
+</div></div>
+<div class="sl-block" data-block-type="image" style="min-width: 30px; min-height: 30px; width: 350px; height: 350px; left: 305px; top: 245px;" data-block-id="be089524db404c8fe5e1a21b9bc79f25"><div class="sl-block-content" style="z-index: 14;"><img data-natural-width="320" data-natural-height="320" data-src="service-worker-crash-course/3463962-question.gif"></div></div></section><section data-id="00ae58a38670e03a3718a35b8682b1e4"><div class="sl-block" data-block-type="text" style="width: 960px; left: 0px; top: 0px; height: auto;" data-block-id="2879bd26ea35911101af501e69b7cda4"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text" style="z-index: 12; text-align: center;" dir="ui">
+<h1>Life cycle on updates</h1>
+</div></div>
+<div class="sl-block" data-block-type="image" style="width: 123px; height: 95px; left: 0px; top: 605px;" data-block-id="bd3f7ad7a992b3eac5b76d6318286981"><div class="sl-block-content" style="z-index: 11;"><img data-natural-width="449" data-natural-height="347" data-src="service-worker-crash-course/3462549-3021977-WalkDinosaur-white.gif"></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 800px; left: 80px; top: 140px;" data-block-id="9db42bed0782cae32dda9de635ddc140"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 13;">
+<h3 style="color:rgb(33, 33, 33); text-align:start"><span style="color:#FFFFFF">Install</span></h3>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 800px; left: 80px; top: 210px;" data-block-id="5b6d94ec39d24f2e6189e7acf7c09c7e"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 15;">
+<p style="text-align:left">Will be triggered after <span style="color:#FFD700">version has changed</span></p>
+
+<p style="text-align:left">Allows to set up a <span style="color:#FFD700">new cache</span> without overwriting current one, which the "old" service worker is using</p>
+
+<p style="text-align:left">Some cache might not be version specific (avatars, logo, etc.)</p>
+</div></div></section><section data-id="2be04e31ff0881f20dfbd75c881dcd26"><div class="sl-block" data-block-type="text" style="width: 960px; left: 0px; top: 0px; height: auto;" data-block-id="e6a268bde228afc5de3a6a56b18194dd"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text" style="z-index: 12; text-align: center;" dir="ui">
+<h1>Life cycle on updates</h1>
+</div></div>
+<div class="sl-block" data-block-type="image" style="width: 123px; height: 95px; left: 0px; top: 605px;" data-block-id="d4d178416d5f27c062cd61ca6e0695cd"><div class="sl-block-content" style="z-index: 11;"><img data-natural-width="449" data-natural-height="347" data-src="service-worker-crash-course/3462549-3021977-WalkDinosaur-white.gif"></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 800px; left: 80px; top: 140px;" data-block-id="450ea576790f9a1b7f4b16dc7a031b21"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 13;">
+<h3 style="color:rgb(33, 33, 33); text-align:start"><span style="color:#FFFFFF">Waiting</span></h3>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 800px; left: 80px; top: 210px;" data-block-id="e1dc041e61c4c7562488b3409bb3d237"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 15;">
+<p style="text-align:left">Activation <span style="color:#FFD700">is delayed</span> until existing service worker no longer controls clients</p>
+
+<p style="text-align:left">Guarantees <span style="color:#FFD700">only one version</span> of the service worker is running</p>
+
+<p style="text-align:left">Refreshing might not be enough.</p>
+
+<p style="text-align:left">The current page doesn't go away until the response headers have been received, and even if response has a Content-Disposition header.</p>
+
+<p style="text-align:left">Similar to how Chrome updates.</p>
+</div></div></section><section data-id="f958b6be04a376995c40e0340c060a27"><div class="sl-block" data-block-type="text" style="width: 960px; left: 0px; top: 0px; height: auto;" data-block-id="503cd03b09a81206c11a75ee84366015"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text" style="z-index: 12; text-align: center;" dir="ui">
+<h1>Life cycle on updates</h1>
+</div></div>
+<div class="sl-block" data-block-type="image" style="width: 123px; height: 95px; left: 0px; top: 605px;" data-block-id="48cb3534a893ac926af08392f3da8ab6"><div class="sl-block-content" style="z-index: 11;"><img data-natural-width="449" data-natural-height="347" data-src="service-worker-crash-course/3462549-3021977-WalkDinosaur-white.gif"></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 800px; left: 80px; top: 140px;" data-block-id="59c3cf1fbf8b84b279d0688988fc9550"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 13;">
+<h3 style="color:rgb(33, 33, 33); text-align:start"><span style="color:#FFFFFF">Activate</span></h3>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 800px; left: 80px; top: 210px;" data-block-id="ba7785b5f6f06c1b8e665686ba7809e3"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 14;">
+<p style="text-align:left">When old service worker is <span style="color:#FFD700">gone</span></p>
+
+<p style="text-align:left">New service worker can control clients</p>
+
+<p style="text-align:left">Time to <span style="color:#FFD700">migrate databases</span> / <span style="color:#FFD700">clear caches</span></p>
+
+<p style="text-align:left">Please do <span style="color:#FFD700">delete old caches</span>!</p>
+</div></div></section></section><section class="stack" data-id="598b698d08ffb70f2916e867d4e7213d"><section data-id="87adfd3d5c05f4b83c7b77b8ecf704a4"><div class="sl-block" data-block-type="text" style="width: 960px; left: 0px; top: 0px; height: auto;" data-block-id="a45a84428712cde00167521931d22833"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text" style="z-index: 12; text-align: center;" dir="ui">
+<h1>Lifecycle extra points</h1>
+</div></div>
+<div class="sl-block" data-block-type="image" style="width: 123px; height: 95px; left: 0px; top: 605px;" data-block-id="9ffe95a5d20c65d440840ec1ba9db733"><div class="sl-block-content" style="z-index: 11;"><img data-natural-width="449" data-natural-height="347" data-src="service-worker-crash-course/3462549-3021977-WalkDinosaur-white.gif"></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 800px; left: 80px; top: 140px;" data-block-id="e08a532ec069f65833b27e439d2f75bb"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 13;">
+<h3 style="color:rgb(33, 33, 33); text-align:start"><span style="color:#FFFFFF">Skipping the waiting phase</span></h3>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 800px; left: 80px; top: 210px;" data-block-id="40387e9d99f514e4a58d7884c1aaab2e"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 14;">
+<p style="text-align:left">When old service worker is <span style="color:#FFD700">gone</span></p>
+
+<p style="text-align:left">New service worker can control clients</p>
+</div></div>
+<div class="sl-block" data-block-type="image" style="min-width: 30px; min-height: 30px; width: 609px; height: 280px; left: 176px; top: 350px;" data-block-id="ae4ecb3ddae11b02a950f8177a8add74"><div class="sl-block-content" style="z-index: 15;"><img data-natural-width="383" data-natural-height="176" data-src="service-worker-crash-course/3464788-skipWaiting.png"></div></div></section><section data-id="82cf52943920d077490d0acf97e9d9cd"><div class="sl-block" data-block-type="text" style="width: 960px; left: 0px; top: 0px; height: auto;" data-block-id="8d02039ada273389a5391cc4d0cd1e83"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text" style="z-index: 12; text-align: center;" dir="ui">
+<h1>Lifecycle extra points</h1>
+</div></div>
+<div class="sl-block" data-block-type="image" style="width: 123px; height: 95px; left: 0px; top: 605px;" data-block-id="ce933911e898c8bf8809c75bfe3ad4fc"><div class="sl-block-content" style="z-index: 11;"><img data-natural-width="449" data-natural-height="347" data-src="service-worker-crash-course/3462549-3021977-WalkDinosaur-white.gif"></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 800px; left: 80px; top: 140px;" data-block-id="3a7b2d290716bf7e88d35d8ab723023f"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 13;">
+<h3 style="color:rgb(33, 33, 33); text-align:start">
+<span style="color:#FFFFFF">Updating... Manually?  </span><span style="color:#FFFFFF">¯\_(⊙︿⊙)_/¯</span>
+</h3>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 800px; left: 80px; top: 210px;" data-block-id="da0adba5f97b6645c6da24a9ad35d367"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 14;">
+<p style="text-align:left">It's also possible to force an update via code!</p>
+</div></div>
+<div class="sl-block" data-block-type="image" style="min-width: 30px; min-height: 30px; width: 800px; height: 166px; left: 80px; top: 280px;" data-block-id="ace2ac32fa73021a572a58d771981c32"><div class="sl-block-content" style="z-index: 15;"><img data-natural-width="468" data-natural-height="97" data-src="service-worker-crash-course/3464809-manual_update.png"></div></div></section></section><section class="stack" data-id="a9bdda99f3a725325b386640af202b6a"><section data-id="438ddb9d34cb90e714ea8456ff661751"><div class="sl-block" data-block-type="text" style="width: 960px; left: 0px; top: 0px; height: auto;" data-block-id="0aa307e816c46ef2ee0abe8caf4a19ec"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text" style="z-index: 12; text-align: center;" dir="ui">
+<h1>Last minute special!</h1>
+</div></div>
+<div class="sl-block" data-block-type="image" style="width: 123px; height: 95px; left: 0px; top: 605px;" data-block-id="be571f0227405ebe0c0fdc8cb78a11b7"><div class="sl-block-content" style="z-index: 11;"><img data-natural-width="449" data-natural-height="347" data-src="service-worker-crash-course/3462549-3021977-WalkDinosaur-white.gif"></div></div>
+
+
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 800px; left: 80px; top: 140px;" data-block-id="d9c97c0935a1108141469ec25c9ddb37"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 13;">
+<p style="text-align: left;"><span style="font-size:1.2em">Callbacks for state changes</span></p>
+
+<p style="text-align: left;"> </p>
+
+<p style="text-align: left;"><span style="font-size:1.2em">Client finding when the controller has changed</span></p>
+</div></div>
+<div class="sl-block" data-block-type="image" style="min-width: 30px; min-height: 30px; width: 234px; height: 280px; left: 363px; top: 350px;" data-block-id="cd6b22a10ad8bfe0c71e979e69c73558"><div class="sl-block-content" style="z-index: 14;"><img data-natural-width="188" data-natural-height="225" data-src="service-worker-crash-course/3468483-last_word.gif"></div></div></section><section data-id="f8ba1240bd4e4ce73a8cb0fe36a50629"><div class="sl-block" data-block-type="text" style="width: 960px; left: 0px; top: 0px; height: auto;" data-block-id="71f5b929a0c8ff2eeab94eeee9ecf296"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text" style="z-index: 11; text-align: center;" dir="ui">
+<h1>Last minute special!</h1>
+</div></div>
+<div class="sl-block" data-block-type="image" style="width: 123px; height: 95px; left: 0px; top: 605px;" data-block-id="a4ec8ff155aec3994189caee9c4b1a23"><div class="sl-block-content" style="z-index: 10;"><img data-natural-width="449" data-natural-height="347" data-src="service-worker-crash-course/3462549-3021977-WalkDinosaur-white.gif"></div></div>
+
+
+<div class="sl-block" data-block-type="image" style="width: 716px; height: 490px; left: 122px; top: 140px;" data-block-id="a60bb945b731a2f24e20b2ef6ed8ff73"><div class="sl-block-content" style="z-index: 12;"><img data-natural-width="755" data-natural-height="517" data-src="service-worker-crash-course/3468372-service_woerker_extra.png"></div></div></section></section><section class="stack" data-id="059e1f40878c0bf88982e974aeff245a"><section data-id="55217df3ff18ac59a6d7caa3727ad2e1"><div class="sl-block" data-block-type="text" style="width: 960px; left: 0px; top: 0px; height: auto;" data-block-id="c1a5ab314f15e4803fab27c11160ba1b"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text" style="z-index: 12; text-align: center;" dir="ui">
+<h1>After class extras</h1>
+</div></div>
+<div class="sl-block" data-block-type="image" style="width: 123px; height: 95px; left: 0px; top: 605px;" data-block-id="c9c28d41873ba58f6f6ae72ae8b289c4"><div class="sl-block-content" style="z-index: 11;"><img data-natural-width="449" data-natural-height="347" data-src="service-worker-crash-course/3462549-3021977-WalkDinosaur-white.gif"></div></div>
+
+
+<div class="sl-block" data-block-type="text" style="height: auto; width: 800px; left: 80px; top: 140px;" data-block-id="4c01da60b36be2f1a1837ab826d40d14"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 13;">
+<p style="text-align:left"><span style="font-size:36px">You can detect when you're <span style="color:#FFD700">online</span> and<span style="color:#FFD700"> offline</span>!</span></p>
+</div></div>
+<div class="sl-block" data-block-type="image" style="min-width: 30px; min-height: 30px; width: 800px; height: 213px; left: 80px; top: 244px;" data-block-id="d825f888f274523facb27635a3fe41de"><div class="sl-block-content" style="z-index: 14;"><img data-natural-width="510" data-natural-height="136" data-src="service-worker-crash-course/3468419-connectivity.png"></div></div></section><section data-id="2baefdbfeef2e3ecc8792c69b325159d"><div class="sl-block" data-block-type="text" style="width: 960px; left: 0px; top: 0px; height: auto;" data-block-id="1a47670fc4668414d60086a3af88056a"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text" style="z-index: 12; text-align: center;" dir="ui">
+<h1>After class extras</h1>
+</div></div>
+<div class="sl-block" data-block-type="image" style="width: 123px; height: 95px; left: 0px; top: 605px;" data-block-id="c97255219a99db07774d0f9b74478f89"><div class="sl-block-content" style="z-index: 11;"><img data-natural-width="449" data-natural-height="347" data-src="service-worker-crash-course/3462549-3021977-WalkDinosaur-white.gif"></div></div>
+
+
+<div class="sl-block" data-block-type="text" style="height: auto; width: 800px; left: 80px; top: 140px;" data-block-id="eb471f1d7d530c703188d6f9eef4f26e"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 13;" dir="ui">
+<p style="text-align:left"><span style="font-size:0.9em"><span style="color:#FFD700">Readable streams</span> - the new boy on the block:​​​​​</span></p>
+
+<p style="text-align:left"> </p>
+
+<p style="text-align:left"><span style="font-size:0.9em">Streaming HTML, in collusion with best practices (e.g. inline CSS) can drastically increase <span style="color:#FFD700">First Meaningful Paint</span> time</span></p>
+
+<p style="text-align:left"> </p>
+
+<p style="text-align:left"><span style="font-size:0.9em">Browsers are already pretty good at <span style="color:#FFD700">interpreting streams</span></span></p>
+
+<p style="text-align:left"> </p>
+
+<p style="text-align:left"><span style="font-size:0.9em">Useful gist: <a href="https://gist.github.com/jakearchibald/64e26e7a1d9b06b3fa3ec0383f2b1f91" target="_blank">https://gist.github.com/jakearchibald/64e26e7a1d9b06b3fa3ec0383f2b1f91</a></span></p>
+</div></div></section><section data-id="8ef019d01af423c1d8a69982c118d944"><div class="sl-block" data-block-type="text" style="width: 960px; left: 0px; top: 0px; height: auto;" data-block-id="6cba08c4741ce7c03f8b7e2f7a2bb17a"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text" style="z-index: 11; text-align: center;" dir="ui">
+<h1>After class extras</h1>
+</div></div>
+<div class="sl-block" data-block-type="image" style="width: 123px; height: 95px; left: 0px; top: 605px;" data-block-id="b1e9ac5788d541ed297bdce9f34e8b79"><div class="sl-block-content" style="z-index: 10;"><img data-natural-width="449" data-natural-height="347" data-src="service-worker-crash-course/3462549-3021977-WalkDinosaur-white.gif"></div></div>
+
+
+<div class="sl-block" data-block-type="text" style="height: auto; width: 800px; left: 80px; top: 280px;" data-block-id="bba5c215d5fb654bac41e96bf6106a52"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 12;" dir="ui">
+<h3><span style="font-size:0.9em">Development tips!</span></h3>
+</div></div></section></section><section data-id="884d80ef75f58bbd4dd3ea64b5cbd429"><div class="sl-block" data-block-type="text" style="width: 960px; left: 0px; top: 0px; height: auto;" data-block-id="49037b6c4143b31bbdece41a82c327e7"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text" style="z-index: 12; text-align: center;" dir="ui">
+<h1>A bit of (shameless)</h1>
+
+<h1>self promotion</h1>
+</div></div>
+<div class="sl-block" data-block-type="image" style="width: 123px; height: 95px; left: 0px; top: 605px;" data-block-id="2fbe1e0fd024143b2a8e4e8089387c3b"><div class="sl-block-content" style="z-index: 11;"><img data-natural-width="449" data-natural-height="347" data-src="service-worker-crash-course/3462549-3021977-WalkDinosaur-white.gif"></div></div>
+
+
+<div class="sl-block" data-block-type="text" style="height: auto; width: 800px; left: 80px; top: 237px;" data-block-id="341c5379d5a73919ab5aa552e5cda1df"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 13;" dir="ui">
+<p style="text-align:left">Progressive Web App experiment available at:</p>
+
+<p style="text-align:left"><a href="https://github.com/AdamModus/offline-todo-list" target="_blank">https://github.com/AdamModus/offline-todo-list</a></p>
+</div></div>
+<div class="sl-block" data-block-type="image" style="min-width: 30px; min-height: 30px; width: 374px; height: 280px; left: 293px; top: 350px;" data-block-id="5c3343bc7ffb169fb0d03b06be41484c"><div class="sl-block-content" style="z-index: 14;"><img data-natural-width="467" data-natural-height="350" data-src="service-worker-crash-course/3471071-loveself.gif"></div></div></section><section data-id="3c55b5a0fbb4007ce674499e6e8ea6d3"><div class="sl-block" data-block-type="text" style="width: 960px; left: 0px; top: 0px; height: auto;" data-block-id="8d0fb0bccb165b29a2dd6bcd4cbace13"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text" style="z-index: 12; text-align: center;" dir="ui">
+<h1>The last slide, phew!</h1>
+</div></div>
+<div class="sl-block" data-block-type="image" style="width: 123px; height: 95px; left: 0px; top: 605px;" data-block-id="8553af54e446684242fca0aca9a81420"><div class="sl-block-content" style="z-index: 11;"><img data-natural-width="449" data-natural-height="347" data-src="service-worker-crash-course/3462549-3021977-WalkDinosaur-white.gif"></div></div>
+
+
+<div class="sl-block" data-block-type="text" style="height: auto; width: 400px; left: 80px; top: 170px;" data-block-id="d268d09f561ee2b4daf334c330e89431"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 13;" dir="ui">
+<h3 style="text-align:left">OK, I'll shut up now.</h3>
+
+<h3 style="text-align:left">Unless, maybe...</h3>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 427px; left: 533px; top: 177px;" data-block-id="f892a42a977426ebaad644b322b16f83"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 14;">
+<h1 style="color:rgb(255, 255, 255); text-align:left"><span style="color:#FFD700">Questions?</span></h1>
+</div></div>
+<div class="sl-block" data-block-type="image" style="min-width: 30px; min-height: 30px; width: 320px; height: 180px; left: 80px; top: 380px;" data-block-id="81176d3a176557384f427db5172fc4d0"><div class="sl-block-content" style="z-index: 16;"><img data-natural-width="640" data-natural-height="360" data-src="service-worker-crash-course/3468487-drop_mic.gif"></div></div>
+<div class="sl-block" data-block-type="image" style="min-width: 30px; min-height: 30px; width: 362px; height: 180px; left: 499px; top: 380px;" data-block-id="e82b0d24ac5ba5ff539f6c657e711461"><div class="sl-block-content" style="z-index: 17;"><img data-natural-width="400" data-natural-height="199" data-src="service-worker-crash-course/3468488-cia.gif"></div></div></section>
+			</div>
+		</div>
+
+		<script>
+			var SLConfig = {"deck": {"id":906191,"slug":"service-worker-crash-course","title":"Service Worker Crash Course","description":"","visibility":"self","published_at":null,"sanitize_messages":null,"thumbnail_url":"https://s3.amazonaws.com/media-p.slid.es/thumbnails/f1136f5224725e5ef0e85b8fd03ec714/thumb.jpg","view_count":0,"user":{"id":518170,"username":"ajrkemp","name":null,"description":null,"thumbnail_url":"https://www.gravatar.com/avatar/c8c46b770fd7b440f2ae66d0729f7e9b?s=140\u0026d=https%3A%2F%2Fs3.amazonaws.com%2Fstatic.slid.es%2Fimages%2Fdefault-profile-picture.png","paid":true,"pro":true,"lite":false,"team_id":null,"settings":{"id":360953,"present_controls":true,"present_upsizing":true,"present_notes":true}},"background_transition":"slide","transition":"slide","theme_id":null,"theme_font":"montserrat","theme_color":"asphalt-orange","auto_slide_interval":0,"comments_enabled":true,"forking_enabled":false,"rolling_links":false,"center":false,"should_loop":false,"share_notes":false,"slide_number":true,"rtl":false,"version":2,"collaborative":null,"deck_user_editor_limit":1,"data_updated_at":1486490015149,"font_typekit":null,"font_google":null,"notes":{}}};
+			SLConfig.current_user = {
+				name: "",
+				username: "ajrkemp",
+				pro: true
+			};
+
+
+			// Use the local font path
+			SLConfig.fonts_url = 'lib/fonts/';
+		</script>
+
+		<script src="lib/head.min.js"></script>
+		<script src="lib/reveal.min.js"></script>
+		<script src="lib/offline.js"></script>
+		<script>
+			// Make Slides speaker notes available in the reveal.js speaker view
+			if( SLConfig.deck.notes ) {
+				[].forEach.call( document.querySelectorAll( '.reveal .slides section' ), function( slide ) {
+
+					var value = SLConfig.deck.notes[ slide.getAttribute( 'data-id' ) ];
+					if( value && typeof value === 'string' ) {
+						slide.setAttribute( 'data-notes', value );
+					}
+
+				} );
+			}
+
+			Reveal.initialize({
+				margin: 0.05,
+				controls: true,
+				progress: true,
+				history: true,
+				mouseWheel: false,
+				showNotes: SLConfig.deck.share_notes,
+				slideNumber: SLConfig.deck.slide_number,
+
+				autoSlide: SLConfig.deck.auto_slide_interval || 0,
+				autoSlideStoppable: true,
+
+				rolling_links: SLConfig.deck.rolling_links || true,
+				center: SLConfig.deck.center || false,
+				loop: SLConfig.deck.should_loop || false,
+				rtl: SLConfig.deck.rtl || false,
+
+				transition: SLConfig.deck.transition,
+				backgroundTransition: SLConfig.deck.background_transition,
+
+				dependencies: [
+					{ src: 'lib/reveal-plugins/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'lib/reveal-plugins/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'lib/reveal-plugins/highlight/highlight.js', async: true, callback: function() { hljs.initHighlighting(); hljs.initHighlightingOnLoad(); } },
+					{ src: 'lib/reveal-plugins/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+		</script>
+
+		
+
+	</body>
+</html>
